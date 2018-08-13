@@ -19,7 +19,8 @@ while True:
 
     # search ff14angler
     search_result = requests.get("http://ff14angler.com/?search=" + search)
-    # load the html 
+    
+    # load the html
     tree = html.fromstring(search_result.content)
 
     # get the search results
@@ -35,25 +36,25 @@ while True:
             try:     
                 selection = int(input("Enter selection: "))
             except ValueError:
-                print("Incorrect input. Please try again.")
                 pass
             else:
                 break
 
     try: 
+        # retrieve the selection's link
         link = "http://ff14angler.com" + tree.xpath('//ul[@class="search_result"]//a/@href')[selection-1]
     except IndexError:
         print("No results for " + search + " found.")
     else:    
         print(string.capwords(name[selection-1]), file=open(file_path + "\\target.txt", "w"))
 
-        # load the fish's page
+        # load the selection's page
         page = requests.get(link)
 
         # load the html
         tree = html.fromstring(page.content)
 
-        # consolidate web link
+        # consolidate image's link
         server_file = "http://ff14angler.com" + tree.xpath('//div[@class="clear_icon_l"]//img/@src')[0]
 
         # save the image
