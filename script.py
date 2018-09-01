@@ -46,7 +46,7 @@ while True:
     except IndexError:
         print("No results for " + search + " found.")
     else:    
-        print(string.capwords(name[selection-1]), file=open(file_path + "\\target.txt", "w"))
+        print(string.capwords(name[selection-1]) + "                     ", file=open(file_path + "\\target.txt", "w"))
 
         # load the selection's page
         page = requests.get(link)
